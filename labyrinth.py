@@ -1,7 +1,35 @@
 # labyrinth
 # "." - free
 # "#" - blocked 
-labyrinth = [
+
+# Test 1
+labyrinth1 = [
+[".",".",".",".",".",".",".",".","."],
+["#",".",".",".","#",".",".",".","."],
+[".",".",".",".","#",".",".",".","."],
+[".","#",".",".",".",".",".","#","."],
+[".","#",".",".",".",".",".","#","."]]
+# Result 11
+
+# Test 2
+labyrinth2 = [
+[".",".",".",".",".",".",".",".","."],
+["#",".",".",".","#",".",".","#","."],
+[".",".",".",".","#",".",".",".","."],
+[".","#",".",".",".",".",".","#","."],
+[".","#",".",".",".",".",".","#","."]
+]
+# Result -1
+
+# Test 3:
+labyrinth3 = [
+[".",".","."],
+[".",".","."],
+[".",".","."]
+]
+# Result 2
+
+labyrinth4 = [
 [".",".",".",".",".",".",".",".",".","."],
 [".","#",".",".",".",".","#",".",".","."],
 [".","#",".",".",".",".",".",".",".","."],
@@ -11,14 +39,19 @@ labyrinth = [
 [".","#",".",".",".","#",".",".",".","."],
 [".",".",".",".",".",".","#",".",".","."],
 [".",".",".",".",".",".",".",".",".","."],
-[".",".",".",".",".",".",".",".",".","."],
+[".",".",".",".",".",".",".",".",".","."]
 ]
+# Result 16
+
+# change the labyrinth among labyrinth1, labyrinth2, labyrinth3, labyrinth4 to test acceptance tests cases
+labyrinth = labyrinth4
+
 
 matrix_lines = len(labyrinth)
 matrix_columns = len(labyrinth[0])
 rod_size = 3
 rod_horizontal = 1
-debug = 0
+debug = 1
 
 # rod matrix values
 # head position linea, columna
@@ -41,13 +74,14 @@ rod_head_line = 0
 rod_head_column = 2
 
 # to the right horizontly
-for c in range(matrix_columns - 3):
-    if (labyrinth[0][c+3] == "."):
-        rod_head_column += 1
-        movements += 1
-    else:
-        movements = (-1)
-        break
+if (matrix_columns > 3):
+    for c in range(matrix_columns - 3):
+        if (labyrinth[0][c+3] == "."):
+            rod_head_column += 1
+            movements += 1
+        else:
+            movements = (-1)
+            break
  
 # down horizontly
 if (movements != -1):
@@ -78,7 +112,7 @@ for l in range(matrix_lines - 1):
 
 
 # to the right
-if (movements != -1):
+if (movements != -1 and matrix_columns > 3):
     for c in range(matrix_columns - 3):
         if (labyrinth[matrix_columns - 1][c+3] == "."):
             rod_head_column += 1
@@ -96,19 +130,20 @@ rod_head_line = 0
 rod_head_column = 2
 
 # to the right horizontly
-for c in range(matrix_columns - 3):
-    if (labyrinth[0][c+3] == "."):
-        rod_head_column += 1
-        movements += 1
-    else:
-        movements = (-1)
-        break
+if (matrix_columns > 3):
+    for c in range(matrix_columns - 3):
+        if (labyrinth[0][c+3] == "."):
+            rod_head_column += 1
+            movements += 1
+        else:
+            movements = (-1)
+            break
 
 # verify space to spin
 if (movements != -1):
     for i in range (3):
-        if (labyrinth[i+1][rod_head_column-i] == "#"):
-            movemments = (-1)
+        if (labyrinth[1][rod_head_column-i] == "#" or labyrinth[2][rod_head_column-i] == "#"):
+            movements = (-1)
             break
 
 # 1 position down
@@ -119,6 +154,7 @@ if (movements != -1):
 # spin
 if (movements != -1):
     rod_horizontal = 0
+    rod_head_line =+1;
     rod_head_column =-1
     movements += 1
 
@@ -129,7 +165,7 @@ if (movements != -1):
     movements += 1
 
 # down vertically
-if (movements != -1):
+if (movements != -1 and matrix_lines > 3 and matrix_columns > 3):
     for l in range(matrix_lines - 3):
         if ((labyrinth[l+3][matrix_columns-1] == ".")):
             rod_head_line += 1
