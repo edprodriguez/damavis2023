@@ -17,8 +17,6 @@ labyrinth = [
 matrix_lines = len(labyrinth)
 matrix_columns = len(labyrinth[0])
 rod_size = 3
-rod_head_line = 0
-rod_head_column = 2
 debug = 0
 
 # rod matrix values
@@ -35,10 +33,12 @@ print ("labyrinth lines=", matrix_lines)
 print ("labyrinth columns=", matrix_columns)
 print ("rod size=",rod_size)
 
-#first way - right to the end then down to the end
+#first way - horizontly right to the end then down to the end
 movements = 0
+rod_head_line = 0
+rod_head_column = 2
 
-# to the right
+# to the right horizontly
 for c in range(matrix_columns - 3):
     if (labyrinth[0][c+3] == "."):
         rod_head_column += 1
@@ -47,7 +47,7 @@ for c in range(matrix_columns - 3):
         movements = (-1)
         break
  
-# down
+# down horizontly
 if (movements != -1):
     for l in range(matrix_lines - 1):
         if ((labyrinth[l+1][matrix_columns-1] == ".") and (labyrinth[l+1][matrix_columns-2] == ".") and (labyrinth[l+1][matrix_columns-3] == ".")):
@@ -57,11 +57,13 @@ if (movements != -1):
             movements = (-1)
             break
 
-print("movements first way=",movements)
+print("movements first way=",movements,"rod_head_line=",rod_head_line,"rod_head_column=",rod_head_column)
 
 
-#second way - down, then to right
+#second way - horizontly down, then to right
 movements = 0
+rod_head_line = 0
+rod_head_column = 2
 
 # down
 for l in range(matrix_lines - 1):
@@ -83,6 +85,9 @@ if (movements != -1):
             movements = (-1)
             break
  
-print("movements second way=",movements)
+print("movements second way=",movements,"rod_head_line=",rod_head_line,"rod_head_column=",rod_head_column)
 
 
+# third way - horizontly, spin and down vertically
+
+# forth way - spin, vertically down, spin, horizontly to the right
