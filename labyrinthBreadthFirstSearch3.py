@@ -119,11 +119,11 @@ print("Number of moves of rod 1: ", solveLabRod1(labyrinth4))
 
 # solution for a rod of 3
 def solveLabRod3(lab):
-    R, C = len(lab), len(lab[0])
+    lines, columns = len(lab), len(lab[0])
 
     start = (0, 0)
-    for r in range(R):
-        for c in range(C):
+    for r in range(lines):
+        for c in range(columns):
             if lab[r][c] == 'X':
                 start = (r, c)
                 break
@@ -135,7 +135,7 @@ def solveLabRod3(lab):
     queue = deque()
     queue.appendleft((start[0], start[1], 0))
     directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
-    visited = [[False] * C for _ in range(R)]
+    visited = [[False] * columns for _ in range(lines)]
 
     while len(queue) != 0:
         coord = queue.pop()
@@ -146,7 +146,7 @@ def solveLabRod3(lab):
 
         for dir in directions:
             nr, nc = coord[0]+dir[0], coord[1]+dir[1]
-            if (nr < 0 or nr >= R or nc < 0 or nc >= C or lab[nr][nc] == "#" or visited[nr][nc]): continue
+            if (nr < 0 or nr >= lines or nc < 0 or nc >= columns or lab[nr][nc] == "#" or visited[nr][nc]): continue
             queue.appendleft((nr, nc, coord[2]+1))
 
 print("Number of moves of rod 3: ", solveLabRod3(labyrinth1))
