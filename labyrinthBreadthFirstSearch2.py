@@ -1,10 +1,5 @@
-import queue
 
-# labyrinth
-# "." - free
-# "#" - blocked 
-# "O" - start
-# "X" - end
+from collections import deque
 
 # Test 1
 labyrinth1 = [
@@ -60,72 +55,37 @@ labyrinth5.append ([" "," "," "," "," "," "," "," "," "," "])
 labyrinth5.append ([" "," "," "," "," "," "," "," "," ","X"])
 # Result 16
 
-# Verify valid moves
+def solveMaze(maze):
+    R, C = len(maze), len(maze[0])
 
-def valid(lab, moves):
-    for x, pos in enumerate(lab[0]):
-        if pos == "O":
-            start = x
+    start = (0, 0)
+    for r in range(R):
+        for c in range(C):
+            if maze[r][c] == 'X':
+                start = (r, c)
+                break
+        else: continue
+        break
+    else:
+        return None
 
-    column = start
-    line = 0
+    queue = deque()
+    queue.appendleft((start[0], start[1], 0))
+    directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+    visited = [[False] * C for _ in range(R)]
 
-    for move in moves:
-        if move == "L":
-            column -= 1
-        elif move == "R":
-            column += 1
-        elif move == "U":
-            line -= 1
-        elif move == "D":
-            line += 1
+    while len(queue) != 0:
+        coord = queue.pop()
+        visited[coord[0]][coord[1]] = True
 
-        if not(0 <= column < len(lab[0]) and 0 <= line < len(lab)):
-            return False
-        elif (lab[line][column] == "#"):
-            return False
+        if maze[coord[0]][coord[1]] == "O":
+            return coord[2]
 
-#Find End Search
+        for dir in directions:
+            nr, nc = coord[0]+dir[0], coord[1]+dir[1]
+            if (nr < 0 or nr >= R or nc < 0 or nc >= C or maze[nr][nc] == "#" or visited[nr][nc]): continue
+            queue.appendleft((nr, nc, coord[2]+1))
 
-def findEnd(lab, moves):
-    for x, pos in enumerate(lab[0]):
-        if pos == "O":
-            start = x
+labyrinth = labyrinth5
 
-    column = start
-    line = 0
-
-    for move in moves:
-        if move == "L":
-            column -= 1
-        elif move == "R":
-            column += 1
-        elif move == "U":
-            line -= 1
-        elif move == "D":
-            line += 1
-
-    if lab[line][column] == "X":
-        print("Found using ", moves ," moves")
-        return True
-    
-    return False
-
-# Breadth First Search Algorithm with a simple rod (1x1)
-debug = 1
-n = queue.Queue()
-n.put("")
-add = ""
-
-# change the labyrinth among labyrinth1, labyrinth2, labyrinth3, labyrinth4 to test acceptance tests cases
-
-# labyrinth = labyrinth5
-
-while not findEnd(labyrinth5, add):
-    add = n.get()
-    if (debug == 1):
-        print(add)
-    for j in ["L", "R", "U", "D"]:
-        put = add + j
-        if valid(labyrinth5, put):
-            n.put(put)
+print("Number of moves: ", solveMaze(labyrinth))
