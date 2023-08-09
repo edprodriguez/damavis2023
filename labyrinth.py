@@ -1,6 +1,6 @@
 # labyrinth
 # "." - free
-# "#" - blocked 
+# "#" - blocked
 
 # Test 1
 labyrinth1 = [
@@ -55,7 +55,7 @@ debug = 1
 
 # rod matrix values
 # head position linea, columna
-# 0 horizontal, 1 vertical
+# 1 horizontal, 0 vertical
 
 
 if (debug == 1):

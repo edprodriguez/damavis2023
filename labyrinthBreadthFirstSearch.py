@@ -1,7 +1,7 @@
 import queue
 
 # labyrinth
-# "." - free
+# "." or " " - free
 # "#" - blocked 
 # "O" - start
 # "X" - end
@@ -115,17 +115,17 @@ def findEnd(lab, moves):
 debug = 1
 n = queue.Queue()
 n.put("")
-add = ""
+a = ""
 
 # change the labyrinth among labyrinth1, labyrinth2, labyrinth3, labyrinth4 to test acceptance tests cases
 
-# labyrinth = labyrinth5
+labyrinth = labyrinth5
 
-while not findEnd(labyrinth5, add):
-    add = n.get()
-    if (debug == 1):
-        print(add)
+while not findEnd(labyrinth, a):
+    a = n.get()
+#    if (debug == 1):
+    print(a)
     for j in ["L", "R", "U", "D"]:
-        put = add + j
-        if valid(labyrinth5, put):
+        put = a + j
+        if valid(labyrinth, put):
             n.put(put)
