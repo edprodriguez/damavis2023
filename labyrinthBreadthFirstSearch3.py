@@ -1,40 +1,43 @@
 from collections import deque
 
-# "O" - origin
-# "X" - exit
+# "O" - objective
+# "X" - start
 # labyrinth
 # "." - free
 # "#" - blocked
 
 # Test 1
 labyrinth1 = [
-["O",".",".",".",".",".",".",".","."],
+["X",".",".",".",".",".",".",".","."],
 ["#",".",".",".","#",".",".",".","."],
 [".",".",".",".","#",".",".",".","."],
 [".","#",".",".",".",".",".","#","."],
-[".","#",".",".",".",".",".","#","X"]]
-# Result 11
+[".","#",".",".",".",".",".","#","O"]]
+# Result 12 - rod 1
+# Result 11 - rod 3
 
 # Test 2
 labyrinth2 = [
-["O",".",".",".",".",".",".",".","."],
+["X",".",".",".",".",".",".",".","."],
 ["#",".",".",".","#",".",".","#","."],
 [".",".",".",".","#",".",".",".","."],
 [".","#",".",".",".",".",".","#","."],
-[".","#",".",".",".",".",".","#","X"]
+[".","#",".",".",".",".",".","#","O"]
 ]
-# Result -1
+# Result 12 - rod 1
+# Result -1 - rod 3
 
 # Test 3:
 labyrinth3 = [
-["O",".","."],
+["X",".","."],
 [".",".","."],
-[".",".","X"]
+[".",".","O"]
 ]
-# Result 2
+# Result 4 - rod 1
+# Result 2 - rod 3
 
 labyrinth4 = [
-["O",".",".",".",".",".",".",".",".","."],
+["X",".",".",".",".",".",".",".",".","."],
 [".","#",".",".",".",".","#",".",".","."],
 [".","#",".",".",".",".",".",".",".","."],
 [".",".",".",".",".",".",".",".",".","."],
@@ -43,9 +46,10 @@ labyrinth4 = [
 [".","#",".",".",".","#",".",".",".","."],
 [".",".",".",".",".",".","#",".",".","."],
 [".",".",".",".",".",".",".",".",".","."],
-[".",".",".",".",".",".",".",".",".","X"]
+[".",".",".",".",".",".",".",".",".","O"]
 ]
-# Result 16
+# Result 18 - rod 1
+# Result 16 - rod 3
 
 
 # change the labyrinth among labyrinth1, labyrinth2, labyrinth3, labyrinth4 to test acceptance tests cases
@@ -54,9 +58,11 @@ labyrinth = labyrinth4
 
 matrix_lines = len(labyrinth)
 matrix_columns = len(labyrinth[0])
-rod_size = 3 # must be odd to have a perfect center
+rod_size = int(3) # must be odd to have a perfect center
+rod_shift = int((rod_size - 1) / 2)
+
 rod_horizontal = 1
-debug = 0
+debug = 1
 
 # rod matrix values
 # head position linea, columna
@@ -104,9 +110,9 @@ def solveLabRod1(lab):
             return coord[2]
 
         for dir in directions:
-            nr, nc = coord[0]+dir[0], coord[1]+dir[1]
-            if (nr < 0 or nr >= lines or nc < 0 or nc >= columns or lab[nr][nc] == "#" or visited[nr][nc]): continue
-            queue.appendleft((nr, nc, coord[2]+1))
+            nl, nc = coord[0]+dir[0], coord[1]+dir[1]
+            if (nl < 0 or nl >= lines or nc < 0 or nc >= columns or lab[nl][nc] == "#" or visited[nl][nc]): continue
+            queue.appendleft((nl, nc, coord[2]+1))
 
 print("Number of moves of rod 1: ", solveLabRod1(labyrinth1))
 
@@ -124,9 +130,9 @@ def solveLabRod3(lab):
     for l in range(lines):
         for c in range(columns):
             if lab[l][c] == 'X':
-                start = (l, c + ((rod_size - 1) / 2)) # start is the center of the rod
-                rod_center_line = l
-                rod_center_column = c + ((rod_size - 1) / 2)
+                start = (l, c + rod_shift)
+                rod_center_line = l # initially position horizontal - in the future it is possible to set this as a parameter
+                rod_center_column = c + rod_shift
                 break
         else: continue
         break
@@ -146,9 +152,9 @@ def solveLabRod3(lab):
             return coord[2]
 
         for dir in directions:
-            nr, nc = coord[0]+dir[0], coord[1]+dir[1]
-            if (nr < 0 or nr >= lines or nc < 0 or nc >= columns or lab[nr][nc] == "#" or visited[nr][nc]): continue
-            queue.appendleft((nr, nc, coord[2]+1))
+            nl, nc = coord[0]+dir[0], coord[1]+dir[1]
+            if (nl < 0 or nl >= lines or nc < 0 or nc >= columns or lab[nl][nc] == "#" or visited[nl][nc]): continue
+            queue.appendleft((nl, nc, coord[2]+1))
 
 print("Number of moves of rod 3: ", solveLabRod3(labyrinth1))
 
