@@ -145,11 +145,10 @@ def solveLabRod3(lab):
     debug = 0
     lines, columns = len(lab), len(lab[0])
 
-    # expanding the objective to the center of the rod when horizontal
-
-    if (lab[lines-1][columns-1-1] !=  "#"):
-        lab[lines-1][columns-1-1] = "O"
-
+    # expanding the objective to the center of the rod when horizontal for rod 3
+    for s in range(rod_shift):
+        if lab [lines-1][columns-1-1-s] != "#":
+            lab [lines-1][columns-1-1-s] = "O"
 
     if (debug == 1):
         for l in range(lines):
