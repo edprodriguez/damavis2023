@@ -54,7 +54,7 @@ labyrinth = labyrinth4
 
 matrix_lines = len(labyrinth)
 matrix_columns = len(labyrinth[0])
-rod_size = 3
+rod_size = 3 # must be odd to have a perfect center
 rod_horizontal = 1
 debug = 0
 
@@ -73,8 +73,7 @@ if (debug == 1):
     print ("rod size=",rod_size)
 
 movements = 0
-rod_position_line = 0
-rod_position_column = 1
+
 
 
 # solution for a rod of 1
@@ -82,10 +81,10 @@ def solveLabRod1(lab):
     lines, columns = len(lab), len(lab[0])
 
     start = (0, 0)
-    for r in range(lines):
+    for l in range(lines):
         for c in range(columns):
-            if lab[r][c] == 'X':
-                start = (r, c)
+            if lab[l][c] == 'X':
+                start = (l, c)
                 break
         else: continue
         break
@@ -122,10 +121,12 @@ def solveLabRod3(lab):
     lines, columns = len(lab), len(lab[0])
 
     start = (0, 0)
-    for r in range(lines):
+    for l in range(lines):
         for c in range(columns):
-            if lab[r][c] == 'X':
-                start = (r, c)
+            if lab[l][c] == 'X':
+                start = (l, c + ((rod_size - 1) / 2)) # start is the center of the rod
+                rod_center_line = l
+                rod_center_column = c + ((rod_size - 1) / 2)
                 break
         else: continue
         break
