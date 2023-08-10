@@ -158,7 +158,7 @@ def solveLabRod3(lab):
     for l in range(lines):
         for c in range(columns):
             if lab[l][c] == 'X':
-                start = (l, c + rod_shift)
+                start = (l, c + rod_shift) # start is the center of the rod
                 rod_center_line = l # initially position horizontal - in the future it is possible to set this as a parameter
                 rod_center_column = c + rod_shift
                 break
