@@ -169,7 +169,7 @@ def solveLabRod3(lab):
 
     queue = deque()
     queue.appendleft((start[0], start[1], 0))
-    directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+    directions = [[0, 1], [0, -1], [1, 0], [-1, 0], [0,0]] # added spin move
     visited = [[False] * columns for _ in range(lines)]
 
     while len(queue) != 0:
