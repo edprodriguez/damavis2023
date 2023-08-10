@@ -51,6 +51,20 @@ labyrinth4 = [
 # Result 18 - rod 1
 # Result 16 - rod 3
 
+labyrinth5 = [
+["X",".",".",".",".",".",".",".",".","."],
+[".","#",".",".",".",".","#",".",".","."],
+[".","#",".",".",".",".",".",".",".","."],
+[".",".",".",".",".",".",".",".",".","."],
+[".",".",".",".",".",".",".",".",".","."],
+[".","#",".",".",".",".",".",".",".","."],
+[".","#",".",".",".","#",".",".",".","."],
+[".",".",".",".",".",".","#",".",".","."],
+[".",".",".",".",".",".",".",".",".","#"],
+[".",".",".",".",".",".",".",".","#","O"]
+]
+# Result -1 - rod 1
+# Result -1 - rod 3
 
 # change the labyrinth among labyrinth1, labyrinth2, labyrinth3, labyrinth4 to test acceptance tests cases
 labyrinth = labyrinth4
@@ -95,7 +109,7 @@ def solveLabRod1(lab):
         else: continue
         break
     else:
-        return None
+        return -1
 
     queue = deque()
     queue.appendleft((start[0], start[1], 0))
@@ -114,17 +128,32 @@ def solveLabRod1(lab):
             if (nl < 0 or nl >= lines or nc < 0 or nc >= columns or lab[nl][nc] == "#" or visited[nl][nc]): continue
             queue.appendleft((nl, nc, coord[2]+1))
 
-print("Number of moves of rod 1: ", solveLabRod1(labyrinth1))
+    return -1
 
-print("Number of moves of rod 1: ", solveLabRod1(labyrinth2))
+print("Labyrinth 1 - Number of moves of rod 1: ", solveLabRod1(labyrinth1))
 
-print("Number of moves of rod 1: ", solveLabRod1(labyrinth3))
+print("Labyrinth 2 - Number of moves of rod 1: ", solveLabRod1(labyrinth2))
 
-print("Number of moves of rod 1: ", solveLabRod1(labyrinth4))
+print("Labyrinth 3 - Number of moves of rod 1: ", solveLabRod1(labyrinth3))
+
+print("Labyrinth 4 - Number of moves of rod 1: ", solveLabRod1(labyrinth4))
+
+print("Labyrinth 5 - Number of moves of rod 1: ", solveLabRod1(labyrinth5))
 
 # solution for a rod of 3
 def solveLabRod3(lab):
+    debug = 0
     lines, columns = len(lab), len(lab[0])
+
+    # expanding the objective to the center of the rod when horizontal
+
+    if (lab[lines-1][columns-1-1] !=  "#"):
+        lab[lines-1][columns-1-1] = "O"
+
+
+    if (debug == 1):
+        for l in range(lines):
+            print (lab[l])
 
     start = (0, 0)
     for l in range(lines):
@@ -137,7 +166,7 @@ def solveLabRod3(lab):
         else: continue
         break
     else:
-        return None
+        return -1
 
     queue = deque()
     queue.appendleft((start[0], start[1], 0))
@@ -156,10 +185,14 @@ def solveLabRod3(lab):
             if (nl < 0 or nl >= lines or nc < 0 or nc >= columns or lab[nl][nc] == "#" or visited[nl][nc]): continue
             queue.appendleft((nl, nc, coord[2]+1))
 
-print("Number of moves of rod 3: ", solveLabRod3(labyrinth1))
+    return -1
 
-print("Number of moves of rod 3: ", solveLabRod3(labyrinth2))
+print("Labyrinth 1 - Number of moves of rod 3: ", solveLabRod3(labyrinth1))
 
-print("Number of moves of rod 3: ", solveLabRod3(labyrinth3))
+print("Labyrinth 2 - Number of moves of rod 3: ", solveLabRod3(labyrinth2))
 
-print("Number of moves of rod 3: ", solveLabRod3(labyrinth4))
+print("Labyrinth 3 - Number of moves of rod 3: ", solveLabRod3(labyrinth3))
+
+print("Labyrinth 4 - Number of moves of rod 3: ", solveLabRod3(labyrinth4))
+
+print("Labyrinth 5 - Number of moves of rod 3: ", solveLabRod3(labyrinth5))
