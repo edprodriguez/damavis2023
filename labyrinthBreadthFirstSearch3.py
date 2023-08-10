@@ -75,7 +75,8 @@ matrix_columns = len(labyrinth[0])
 rod_size = int(3) # must be odd to have a perfect center
 rod_shift = int((rod_size - 1) / 2)
 
-rod_horizontal = 1
+global rod_horizontal
+rod_horizontal = True
 debug = 1
 
 # rod matrix values
@@ -181,6 +182,7 @@ def solveLabRod3(lab):
 
         for dir in directions:
             nl, nc = coord[0]+dir[0], coord[1]+dir[1]
+            # implement the orientation of the rod when it is a spin if dir[0] == 0 and dir[1] == 0: 
             if (nl < 0 or nl >= lines or nc < 0 or nc >= columns or lab[nl][nc] == "#" or visited[nl][nc]): continue
             queue.appendleft((nl, nc, coord[2]+1))
 
